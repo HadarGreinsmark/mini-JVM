@@ -124,7 +124,12 @@ byteCode byteCodes[] = {
     {"ldc", 0x12, 2, jvm_op::ldc},
     {"aload_0", 0x2A, 1, jvm_op::aload_0},
     {"return", 0xB1, 1, jvm_op::retur},
-    {"ifeq", 0x99, 3, jvm_op::if_cond([](int a) -> bool { return 0 == a; })}
+    {"ifeq", 0x99, 3, jvm_op::if_cond([](int a) -> bool { return a == 0; })},
+    {"ifne", 0x9A, 3, jvm_op::if_cond([](int a) -> bool { return a != 0; })},
+    {"iflt", 0x9B, 3, jvm_op::if_cond([](int a) -> bool { return a < 0; })},
+    {"ifge", 0x9C, 3, jvm_op::if_cond([](int a) -> bool { return a >= 0; })},
+    {"ifgt", 0x9D, 3, jvm_op::if_cond([](int a) -> bool { return a > 0; })},
+    {"ifle", 0x9E, 3, jvm_op::if_cond([](int a) -> bool { return a <= 0; })}
 };
 
 instFunc findOpCode(unsigned char op) {
