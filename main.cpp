@@ -94,6 +94,21 @@ int retur(uint8_t *&pc, FrameStack &frame) {
     return -1; //Some value so ww know when to return
 }
 
+instFunc if_cond(std::function<bool(int)> predicate) {
+    return [predicate](uint8_t *&pc, FrameStack &frame) -> int {
+      uint32_t value = frame.stack_value(-1);
+      int16_t offset = be16toh(*reinterpret_cast<int16_t *>(pc + 1));
+
+      if (predicate(value)) {
+          pc += offset;
+      } else {
+          pc += 3;
+      }
+
+      return 0; //Some value so ww know when to return
+    };
+}
+
 }
 
 byteCode byteCodes[] = {
@@ -108,11 +123,12 @@ byteCode byteCodes[] = {
     {"invokevirtual", 0xB6, 3, jvm_op::invokevirtual},
     {"ldc", 0x12, 2, jvm_op::ldc},
     {"aload_0", 0x2A, 1, jvm_op::aload_0},
-    {"return", 0xB1, 1, jvm_op::retur}
+    {"return", 0xB1, 1, jvm_op::retur},
+    {"ifeq", 0x99, 3, jvm_op::if_cond([](int a) -> bool { return 0 == a; })}
 };
 
 instFunc findOpCode(unsigned char op) {
-    for (int i = 0; i < 12; i++) {
+    for (int i = 0; i < 13; i++) {
         if (byteCodes[i].op == op) {
             std::cout << "# " << byteCodes[i].name << std::endl;
             return byteCodes[i].func;
@@ -125,7 +141,7 @@ int main() {
 
 
     Class *cls =
-        read_class_from_file_name((char *) "/Users/hadar/Documents/kompkon17/compiler-labs-hadarg-brommund/VM/HelloWorld.class");
+        read_class_from_file_name((char *) "/Users/hadar/Documents/kompkon17/mini-VM/HelloWorld.class");
 
     print_class(stdout, cls);
     fflush(stdout);
