@@ -3,5 +3,5 @@ project(mini-jvm)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(SOURCE_FILES main.cpp MicroJavaLib.cpp MicroJavaLib.h FrameStack.h)
+set(SOURCE_FILES main.cpp FrameStack.h)
 add_executable(minijvm ${SOURCE_FILES})

@@ -1,0 +1,63 @@
+object Main extends App {
+  var a:Int = 0;
+  var b:Int = 1;
+  var c:Int = 2;
+  var d:Int = 3;
+  var e:Int = 4;
+  var f:Int = 5;
+  var g:Int = 6;
+
+  println(a);
+  println(b);
+  println(c);
+  println(d);
+  println(e);
+  println(f);
+  println(g);
+
+  println("3=");
+  println(b+c);
+
+  println("-1=");
+  println(b-c);
+
+  println("1=");
+  println(c-b);
+
+  println("30=");
+  println(f*g);
+
+  println("1=");
+  println(5/4);
+
+
+  println("0=");
+  println(4/5);
+
+
+  g = f*(b-c);
+  println(g);
+  if (g == (0-5)){
+    println("jaaaa")
+  }else{
+    println("Nej")
+  };
+
+
+
+
+
+  while (b<a) {
+    println("Hello World!")
+  };
+
+  a = 0;
+  while (a < 10){
+    println(a);
+    a=a+1
+  };
+
+  1+1;
+
+  println(8+7)
+}
